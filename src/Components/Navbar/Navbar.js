@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import logo from '../../Assessts/logo.png';
 
-const Navbar = ({ setSearchTerm, setShowAllPokemon }) => {
+const Navbar = ({ setSearchTerm }) => {
   const handleSearchChange = (event) => {
+    console.log('Event:', event);
     setSearchTerm(event.target.value);
   };
-
-
+    
   return (
     <div className='flex justify-between bg-black p-5'>
       <div>
@@ -20,6 +21,7 @@ const Navbar = ({ setSearchTerm, setShowAllPokemon }) => {
           onChange={handleSearchChange}
         />
         <button
+        type='button'
           className='p-2 bg-yellow-400 text-white rounded-r-md cursor-pointer'
         >
           search
@@ -27,6 +29,10 @@ const Navbar = ({ setSearchTerm, setShowAllPokemon }) => {
       </div>
     </div>
   );
+};
+
+Navbar.propTypes = {
+  setSearchTerm: PropTypes.func.isRequired,
 };
 
 export default Navbar;
