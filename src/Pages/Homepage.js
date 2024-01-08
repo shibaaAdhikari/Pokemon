@@ -1,44 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '../Components/Navbar/Navbar';
-import Cards from '../Components/Cards/Cards'; // Assuming your Cards component is in the correct path
+import Cards from '../Components/Cards/Cards';
 
 const Homepage = () => {
   const [pokemonData, setPokemonData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Replace 'https://pokeapi.co/api/v2/contest-type/berry_flavor/1' with the actual API endpoint you want to use
-        const response = await fetch('https://pokeapi.co/api/v2/contest-type/berry_flavor/1');
+        const response = await fetch('https:/pokeapi.co/api/v2/pokemon');
         const data = await response.json();
         console.log(data);
-
-        // Assuming the API response contains an array of Pokemon data
-        setPokemonData(data.pokemon); // Adjust the property accordingly based on the API response structure
+        setPokemonData(data.results);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, []); // The empty dependency array ensures the effect runs only once on component mount
+  }, []);
+
+  const filteredPokemon = pokemonData.filter((pokemon) =>
+  pokemon.name.toLowerCase().includes(searchTerm.toLowerCase())
+);
 
   return (
     <div>
-      <Navbar />
+      <Navbar setSearchTerm={setSearchTerm}/>
+      <div className='flex flex-wrap justify-evenly m-5 p-5'>
 
-      {/* Map over the fetched Pokemon data and render Cards component for each */}
-      {pokemonData.map((pokemon) => (
+      {filteredPokemon.map((pokemon) => (
         <Cards
-          key={pokemon.id} // Make sure each Card has a unique key
           name={pokemon.name}
-          type={pokemon.type}
-          description={pokemon.description}
-          // Add any other props you need to pass to Cards component
+          image={pokemon.url}
+
         />
       ))}
+      </div>
     </div>
   );
 };
 
 export default Homepage;
+

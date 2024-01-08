@@ -2,7 +2,12 @@ import React from 'react';
 import logo from "../../Assessts/logo.png"
 
 
-const Navbar = () => {
+const Navbar = ({setSearchTerm}) => {
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
   return (
     <div className='flex justify-between bg-black p-5'>
       {/* Move the second div to the start */}
@@ -14,6 +19,7 @@ const Navbar = () => {
           type='search'
           placeholder='Search for Pokemon'
           className='p-2 pl-10 rounded-tl-md rounded-bl-md'
+          onChange={handleSearchChange}
         />
         <button
           className='p-2  bg-yellow-700 text-white rounded-r-md cursor-pointer'
