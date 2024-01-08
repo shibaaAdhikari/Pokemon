@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types"
 import logo from "../../../src/Assessts/logo.png";
 
 const Cards = ({ name, image }) => {
@@ -8,6 +9,11 @@ const Cards = ({ name, image }) => {
       <h3 className='text-yellow-700 m-0 p-0 text-lg font-semibold'>{name}</h3>
     </div>
   );
+};
+
+Cards.propTypes = {
+  name: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
 };
 
 export default Cards;
